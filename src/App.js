@@ -8,16 +8,18 @@ class App extends Component {
     super(props);
 
     this.state = {
-      showMessage : false
+      showMessage : false,
+      buttonColor : 'purple',
     };
 
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(){
+  handleClick(newColor){
     this.setState({
       ...this.state,
-      showMessage : !this.state.showMessage
+      buttonColor: newColor,
+      showMessage : !this.state.showMessage,
     });
   }
 
@@ -35,12 +37,7 @@ class App extends Component {
           {this.state.showMessage && (
             <p>Holo, me presionaron el botón</p>
           )}
-          <SpecialButton color={'purple'} onClick={this.handleClick}>Press me!</SpecialButton>
-          <SpecialButton color={'blue'} onClick={this.handleClick}>Press me!</SpecialButton>
-          <SpecialButton color={'red'} onClick={this.handleClick}>Press me!</SpecialButton>
-          <SpecialButton color={'yellow'} onClick={this.handleClick}>Press me!</SpecialButton>
-          <SpecialButton color={'green'} onClick={this.handleClick}>Press me!</SpecialButton>
-          <SpecialButton color={'black'} onClick={this.handleClick}>Press me!</SpecialButton>
+          <SpecialButton color={this.state.buttonColor} onClickHandler={this.handleClick}>Press me!</SpecialButton>
         </header>
       </div>
     );
