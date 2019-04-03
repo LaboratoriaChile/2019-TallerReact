@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { connect } from 'react-redux';
 import {SpecialButton} from './components/SpecialButton';
+import { evolucionarPokemon } from './actions/pokemonAction';
 
 class App extends Component {
   constructor(props){
@@ -21,6 +23,8 @@ class App extends Component {
       buttonColor: newColor,
       showMessage : !this.state.showMessage,
     });
+
+    this.props.evolucionarPokemonAccion();
   }
 
   render() {
@@ -31,17 +35,30 @@ class App extends Component {
           {!this.state.showMessage && (
             <p>
             Holo, soy un taller de react
-            Y me actualizo con cada modificación
           </p>
           )}
           {this.state.showMessage && (
             <p>Holo, me presionaron el botón</p>
           )}
           <SpecialButton color={this.state.buttonColor} onClickHandler={this.handleClick}>Press me!</SpecialButton>
+          {this.props.pokemonReducer && (
+            <h2>Pokemon : {this.props.pokemonReducer.name}</h2>)}
         </header>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  ...state
+});
+
+const mapDispatchToProps = dispatch => ({
+  evolucionarPokemonAccion : evolucionarPokemon.bind(null, dispatch)
+});
+
+export default 
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App);
